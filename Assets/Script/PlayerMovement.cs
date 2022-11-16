@@ -6,10 +6,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private NavMeshAgent _agent;
-    // Start is called before the first frame update
+    private int _playerMask;
     void Start()
     {
-        
+        _playerMask = LayerMask.NameToLayer("Player");
     }
 
     // Update is called once per frame
@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             Ray movePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(movePosition, out var hitInfo))
+            if (Physics.Raycast(movePosition, out var hitInfo, Mathf.Infinity, _playerMask))
             {
                 _agent.SetDestination(hitInfo.point);
             }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Totem : MonoBehaviour
+public class Totem : BaseUnit
 {
 
     private Animator animator;
@@ -36,6 +36,7 @@ public class Totem : MonoBehaviour
       if(auraOn && !playerInRange) {
         auraOn = false;
         Destroy(auraVFX);
+        // DestroyImmediate(auraVFX, true);
       }
 
     }
@@ -48,5 +49,15 @@ public class Totem : MonoBehaviour
       yield return new WaitForSeconds(7f);
       playerInRange = false;
       animator.SetBool("PlayerInRange", playerInRange);
+    }
+
+    public override void Attack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        throw new System.NotImplementedException();
     }
 }
