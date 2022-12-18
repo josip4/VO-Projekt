@@ -1054,7 +1054,6 @@ GameObject:
   - component: {fileID: 191651982}
   - component: {fileID: 191651981}
   - component: {fileID: 191651985}
-  - component: {fileID: 191651986}
   - component: {fileID: 191651987}
   m_Layer: 3
   m_Name: Player
@@ -1164,19 +1163,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &191651986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191651979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d24e683de0fc3141839255ca84aaa1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agent: {fileID: 191651985}
 --- !u!114 &191651987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,8 +1175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3533dbd9c64530a41bb4a76024b7d082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
+  _maxHealth: 100
   _attack: 10
+  _attackSpeed: 1
+  _attackRange: 1
+  _moveSpeed: 10
+  _agent: {fileID: 191651985}
 --- !u!1 &194415540
 GameObject:
   m_ObjectHideFlags: 0
@@ -8284,10 +8274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe654ca30d634855bea191017b80d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
+  _maxHealth: 100
   _attack: 10
-  monster: {fileID: 1438797800468804, guid: 7087784e228be8745af45599a5130532, type: 3}
-  auraVFX: {fileID: 5824670795371433373, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
+  _attackSpeed: 0.2
+  _attackRange: 10
+  _moveSpeed: 10
+  _monster: {fileID: 1438797800468804, guid: 7087784e228be8745af45599a5130532, type: 3}
+  _auraVFX: {fileID: 5824670795371433373, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
 --- !u!95 &1604132939
 Animator:
   serializedVersion: 4

@@ -5,13 +5,27 @@ using UnityEngine;
 public abstract class BaseUnit : MonoBehaviour
 {
     [SerializeField]
-    private int _health = 100;
+    protected int _maxHealth = 100;
+    protected int _health;
     [SerializeField]
-    private int _attack = 10;
-    abstract public void Attack();
-    abstract public void TakeDamage(int damage);
+    protected int _attack = 10;
+    [SerializeField]
+    protected float _attackSpeed = 1f;
+    [SerializeField]
+    protected float _attackRange = 1f;
+    [SerializeField]
+    protected int _moveSpeed = 10;
+    abstract public void Attack(BaseUnit target);
+    public void Awake() {
+        _health = _maxHealth;
+    }
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+        if (_health <= 0) Destroy(gameObject);
+    }
     void OnMouseEnter()
     {
-        print("mouse enter");
+        print($"Health = {_health}");
     }
 }
