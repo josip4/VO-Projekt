@@ -8279,7 +8279,7 @@ MonoBehaviour:
   _attackSpeed: 0.2
   _attackRange: 10
   _moveSpeed: 10
-  _monster: {fileID: 1438797800468804, guid: 7087784e228be8745af45599a5130532, type: 3}
+  _monster: {fileID: 5606394742310877004, guid: ed00fb268997f4c13b8ebfde73a3c834, type: 3}
   _auraVFX: {fileID: 5824670795371433373, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
 --- !u!95 &1604132939
 Animator:

@@ -11,10 +11,12 @@ public class PlayerUnit : BaseUnit
     void Start()
     {
         _playerMask = LayerMask.NameToLayer("Player");
+        _agent.speed = _moveSpeed;
     }
     void Update()
     {
         Move();
+        print($"movespeed={_agent.velocity}");
     }
     public override void Attack(BaseUnit target)
     {

@@ -6,9 +6,9 @@ public class Totem : BaseUnit
 {
   private Animator _animator;
   [SerializeField]
-  private GameObject _monster;
+  private Devil _monster;
   [SerializeField]
-  private GameObject _auraVFX;
+  private ParticleSystem _auraVFX;
 
   private GameObject aura = null;
   private bool _playerInRange = false;
@@ -34,10 +34,10 @@ public class Totem : BaseUnit
     {
       auraOn = true;
       Vector3 auraPos = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
-      aura = Instantiate(_auraVFX, auraPos, Quaternion.identity);
+      // aura = Instantiate(_auraVFX, auraPos, Quaternion.identity);
       return;
     }
-    aura.SetActive(true);
+    // aura.Play();
     auraOn = true;
     
   }
@@ -45,9 +45,7 @@ public class Totem : BaseUnit
   {
     PlayerUnit player = FindObjectOfType<PlayerUnit>();
     float distance = Vector3.Distance (player.transform.position, transform.position);
-    print($"dist={distance}, arran={_attackRange}");
     _playerInRange = distance <= _attackRange ? true : false;
-    print($"range={_playerInRange}");
   }
 
   IEnumerator Spawn()
@@ -59,7 +57,7 @@ public class Totem : BaseUnit
     // yield return new WaitForSeconds(7f);
     _animator.SetBool("PlayerInRange", _playerInRange);
     if (aura is not null){
-      aura.SetActive(false);
+      // aura.Stop();
       auraOn = false;
     }  
     _spawning = false;

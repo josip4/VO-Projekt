@@ -14,7 +14,7 @@ public abstract class BaseUnit : MonoBehaviour
     [SerializeField]
     protected float _attackRange = 1f;
     [SerializeField]
-    protected int _moveSpeed = 10;
+    protected float _moveSpeed = 100;
     abstract public void Attack(BaseUnit target);
     public void Awake() {
         _health = _maxHealth;
