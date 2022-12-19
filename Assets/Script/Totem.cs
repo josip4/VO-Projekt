@@ -36,6 +36,7 @@ public class Totem : BaseUnit
 	if (_playerInRange) _aura.Play();
 	else _aura.Pause();
 	}
+
 	IEnumerator Spawn()
 	{
 	_spawning = true;
@@ -47,6 +48,7 @@ public class Totem : BaseUnit
 	Instantiate(_monster, randomSpawnPosition, randomRotation);
 	// yield return new WaitForSeconds(7f);
 	_animator.SetBool("PlayerInRange", _playerInRange);
+	_spawning = false;
 	}
 
 	public override void Attack<T>(T target)
