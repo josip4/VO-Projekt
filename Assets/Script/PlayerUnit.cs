@@ -8,6 +8,7 @@ public class PlayerUnit : BaseUnit
     [SerializeField]
     private NavMeshAgent _agent;
     private int _playerMask;
+    public Vector3 Position => _agent.nextPosition;
     void Start()
     {
         _playerMask = LayerMask.NameToLayer("Player");
@@ -16,7 +17,6 @@ public class PlayerUnit : BaseUnit
     void Update()
     {
         Move();
-        print($"movespeed={_agent.velocity}");
     }
     public override void Attack(BaseUnit target)
     {
