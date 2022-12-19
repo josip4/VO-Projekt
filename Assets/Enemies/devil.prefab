@@ -599,8 +599,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _attack: 10
-  _attackSpeed: 1
-  _attackRange: 1
+  _attackSpeed: 0.5
+  _attackRange: 2
   _moveSpeed: 10
   _minPlayerRange: 10
 --- !u!1 &5638299392972590550

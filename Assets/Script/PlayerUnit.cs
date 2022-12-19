@@ -18,7 +18,7 @@ public class PlayerUnit : BaseUnit
     {
         Move();
     }
-    public override void Attack(BaseUnit target)
+    public override void Attack<T> (T target)
     {
         throw new System.NotImplementedException();
     }
