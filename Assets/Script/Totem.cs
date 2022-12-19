@@ -16,37 +16,40 @@ public class Totem : BaseUnit
 
 	void Start()
 	{
-	_animator = GetComponent<Animator>();
+		_animator = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-	CheckPlayerInRange();
+		CheckPlayerInRange();
 
-	if (!_playerInRange) return;
-	Attack<BaseUnit>(null);
+		if (!_playerInRange) return;
+		Attack<BaseUnit>(null);
 	}
+
 	private void CheckPlayerInRange()
 	{
-	PlayerUnit player = FindObjectOfType<PlayerUnit>();
-	float distance = Vector3.Distance (player.transform.position, transform.position);
-	_playerInRange = distance <= _attackRange ? true : false;
-	if (_aura is null) return;
-	if (_playerInRange) _aura.Play();
-	else _aura.Pause();
+		PlayerUnit player = FindObjectOfType<PlayerUnit>();
+		float distance = Vector3.Distance (player.transform.position, transform.position);
+		_playerInRange = distance <= _attackRange ? true : false;
+		if (_aura is null) return;
+		if (_playerInRange) _aura.Play();
+		else _aura.Pause();
 	}
+
 	IEnumerator Spawn()
 	{
-	_spawning = true;
-	yield return new WaitForSeconds(1 / _attackSpeed);
-	Vector3 randomSpawnPosition = new Vector3(Random.Range(6f, 10f), 0.9f, Random.Range(-18f, -20f));
-	Quaternion randomRotation = Random.rotation;
-	randomRotation.x = 0;
-	randomRotation.z = 0;
-	Instantiate(_monster, randomSpawnPosition, randomRotation);
-	// yield return new WaitForSeconds(7f);
-	_animator.SetBool("PlayerInRange", _playerInRange);
+		_spawning = true;
+		yield return new WaitForSeconds(1 / _attackSpeed);
+
+		Vector3 randomSpawnPosition = new Vector3(Random.Range(6f, 10f), 0.9f, Random.Range(-18f, -20f));
+		Quaternion randomRotation = Random.rotation;
+		randomRotation.x = 0;
+		randomRotation.z = 0;
+		Instantiate(_monster, randomSpawnPosition, randomRotation);
+		// yield return new WaitForSeconds(7f);
+		_animator.SetBool("PlayerInRange", _playerInRange);
 	}
 
 	public override void Attack<T>(T target)
@@ -56,7 +59,7 @@ public class Totem : BaseUnit
 		{
 			Vector3 auraPos = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
 			_aura = Instantiate(_auraVFX, auraPos, Quaternion.identity);
-		}    
+		}
 		if (_spawning) return;
 		StartCoroutine(Spawn());
 	}

@@ -12,12 +12,17 @@ public class Devil : BaseUnit
     private Animator _animator;
     private NavMeshAgent _agent;
 
+    public GameObject spawnVFX;
+    public GameObject deathVFX;
+
     // Start is called before the first frame update
     void Start()
     {
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = _moveSpeed;
+
+        Instantiate(spawnVFX, transform.position, transform.rotation * Quaternion.Euler (90f, 0f, 0f));
     }
 
     // Update is called once per frame
@@ -34,7 +39,7 @@ public class Devil : BaseUnit
         float distance = Vector3.Distance (player.transform.position, transform.position);
         return distance <= _attackRange;
     }
-    
+
     private bool PlayerInRange(out PlayerUnit player)
     {
         player = FindObjectOfType<PlayerUnit>();
@@ -69,7 +74,7 @@ public class Devil : BaseUnit
         _canMove = false;
         _animator.SetBool("Attacking", true);
         StartCoroutine(AttackTimer());
-        target.TakeDamage(_attack);        
+        target.TakeDamage(_attack);
     }
     IEnumerator AttackTimer()
     {
