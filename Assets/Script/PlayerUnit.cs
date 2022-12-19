@@ -1,28 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerUnit : BaseUnit
 {
-    public override void Attack()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void TakeDamage(int damage)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
+    [SerializeField]
+    private NavMeshAgent _agent;
+    private int _playerMask;
+    public Vector3 Position => _agent.nextPosition;
     void Start()
     {
-        
+        _playerMask = LayerMask.NameToLayer("Player");
+        _agent.speed = _moveSpeed;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        Move();
+    }
+    public override void Attack(BaseUnit target)
+    {
+        throw new System.NotImplementedException();
+    }
+    private void Move()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            Ray movePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(movePosition, out var hitInfo, Mathf.Infinity, _playerMask))
+            {
+                _agent.SetDestination(hitInfo.point);
+            }
+        }
     }
 }

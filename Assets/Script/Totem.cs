@@ -4,60 +4,60 @@ using UnityEngine;
 
 public class Totem : BaseUnit
 {
+	private Animator _animator;
+	[SerializeField]
+	private Devil _monster;
+	[SerializeField]
+	private ParticleSystem _auraVFX;
 
-    private Animator animator;
-    public GameObject monster;
-    public GameObject auraVFX;
-    private bool playerInRange = false;
-    private bool auraOn = false;
-    private int count = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-      animator = GetComponent<Animator>();
-    }
+	private ParticleSystem _aura = null;
+	private bool _playerInRange = false;
+	private bool _spawning = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-      if(!auraOn && playerInRange) {
-        auraOn = true;
-        Vector3 auraPos = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
-        Instantiate(auraVFX, auraPos, Quaternion.identity);
-      }
-      
-      if (count == 0) {
-        count++;
-        playerInRange = true;
-        animator.SetBool("PlayerInRange", playerInRange);
-        StartCoroutine(Spawn());
-      }
+	void Start()
+	{
+	_animator = GetComponent<Animator>();
+	}
 
-      if(auraOn && !playerInRange) {
-        auraOn = false;
-        Destroy(auraVFX);
-        // DestroyImmediate(auraVFX, true);
-      }
+	// Update is called once per frame
+	void Update()
+	{
+	CheckPlayerInRange();
 
-    }
+	if (!_playerInRange) return;
+	Attack(null);
+	}
+	private void CheckPlayerInRange()
+	{
+	PlayerUnit player = FindObjectOfType<PlayerUnit>();
+	float distance = Vector3.Distance (player.transform.position, transform.position);
+	_playerInRange = distance <= _attackRange ? true : false;
+	if (_aura is null) return;
+	if (_playerInRange) _aura.Play();
+	else _aura.Pause();
+	}
+	IEnumerator Spawn()
+	{
+	_spawning = true;
+	yield return new WaitForSeconds(1 / _attackSpeed);
+	Vector3 randomSpawnPosition = new Vector3(Random.Range(6f, 10f), 0.9f, Random.Range(-18f, -20f));
+	Quaternion randomRotation = Random.rotation;
+	randomRotation.x = 0;
+	randomRotation.z = 0;
+	Instantiate(_monster, randomSpawnPosition, randomRotation);
+	// yield return new WaitForSeconds(7f);
+	_animator.SetBool("PlayerInRange", _playerInRange);
+	}
 
-    IEnumerator Spawn()
-    {
-      yield return new WaitForSeconds(2f);
-      Vector3 randomSpawnPosition = new Vector3(Random.Range(6, 10), 0.7f, Random.Range(-18, -20));
-      Instantiate(monster, randomSpawnPosition, Quaternion.identity);
-      yield return new WaitForSeconds(7f);
-      playerInRange = false;
-      animator.SetBool("PlayerInRange", playerInRange);
-    }
-
-    public override void Attack()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void TakeDamage(int damage)
-    {
-        throw new System.NotImplementedException();
-    }
+	public override void Attack(BaseUnit target)
+	{
+		_animator.SetBool("PlayerInRange", _playerInRange);
+		if (_aura is null)
+		{
+			Vector3 auraPos = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
+			_aura = Instantiate(_auraVFX, auraPos, Quaternion.identity);
+		}    
+		if (_spawning) return;
+		StartCoroutine(Spawn());
+	}
 }
