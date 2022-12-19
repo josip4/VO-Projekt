@@ -20,7 +20,7 @@ public class PlayerUnit : BaseUnit
     }
     public override void Attack<T> (T target)
     {
-        throw new System.NotImplementedException();
+        target.TakeDamage(_attack);
     }
     private void Move()
     {
