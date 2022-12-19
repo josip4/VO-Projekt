@@ -6,7 +6,9 @@ public abstract class BaseUnit : MonoBehaviour
 {
     [SerializeField]
     protected int _maxHealth = 100;
+    public int MaxHealth => _maxHealth;
     protected int _health;
+    public int Health => _health;
     [SerializeField]
     protected int _attack = 10;
     [SerializeField]
@@ -15,7 +17,9 @@ public abstract class BaseUnit : MonoBehaviour
     protected float _attackRange = 1f;
     [SerializeField]
     protected float _moveSpeed = 100;
-    abstract public void Attack(BaseUnit target);
+    
+    #nullable enable
+    abstract public void Attack<T>(T target) where T : BaseUnit?;
     public void Awake() {
         _health = _maxHealth;
     }

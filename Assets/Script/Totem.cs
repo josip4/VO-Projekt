@@ -25,7 +25,7 @@ public class Totem : BaseUnit
 	CheckPlayerInRange();
 
 	if (!_playerInRange) return;
-	Attack(null);
+	Attack<BaseUnit>(null);
 	}
 	private void CheckPlayerInRange()
 	{
@@ -49,7 +49,7 @@ public class Totem : BaseUnit
 	_animator.SetBool("PlayerInRange", _playerInRange);
 	}
 
-	public override void Attack(BaseUnit target)
+	public override void Attack<T>(T target)
 	{
 		_animator.SetBool("PlayerInRange", _playerInRange);
 		if (_aura is null)
