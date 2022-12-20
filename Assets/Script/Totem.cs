@@ -10,6 +10,8 @@ public class Totem : BaseUnit
 	private Devil _monster;
 	[SerializeField]
 	private ParticleSystem _auraVFX;
+	[SerializeField]
+	private ParticleSystem _deathAuraVFX;
 
 	private ParticleSystem _aura = null;
 	private bool _playerInRange = false;
@@ -69,6 +71,7 @@ public class Totem : BaseUnit
 
     protected override void Die()
     {
+		Instantiate(_deathAuraVFX, gameObject.transform.position, _deathAuraVFX.transform.rotation);
         Destroy(gameObject);
     }
 }
