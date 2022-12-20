@@ -597,12 +597,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce7fd9f68270c949861ffe68bbedea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 50
-  _attack: 10
+  _maxHealth: 20
+  _attack: 5
   _attackSpeed: 0.5
-  _attackRange: 2
+  _attackRange: 1.5
   _moveSpeed: 1
-  _minPlayerRange: 10
+  _minPlayerRange: 7
   spawnVFX: {fileID: 9193444397495554904, guid: 78394946ae58ab94eb352b6f7536919d, type: 3}
   deathVFX: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
 --- !u!1 &5638299392972590550

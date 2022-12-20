@@ -70,6 +70,7 @@ public class Devil : BaseUnit
     }
     public override void Attack(GameObject target)
     {
+        FaceTarget();
         if (!_canAttack) return;
         _canAttack = false;
         _canMove = false;
@@ -88,5 +89,13 @@ public class Devil : BaseUnit
         yield return new WaitForSeconds(1 / _attackSpeed);
         _canAttack = true;
         _canMove = true;
+    }
+
+    private void FaceTarget()
+    {
+      PlayerUnit _target = FindObjectOfType<PlayerUnit>();
+      Vector3 direction = (_target.transform.position - transform.position).normalized;
+      Quaternion lookDirection = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+      transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, Time.deltaTime * 5f);
     }
 }

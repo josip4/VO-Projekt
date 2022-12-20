@@ -71,7 +71,8 @@ public class Totem : BaseUnit
 
     protected override void Die()
     {
-		Instantiate(_deathAuraVFX, gameObject.transform.position, _deathAuraVFX.transform.rotation);
-        Destroy(gameObject);
+			_aura.gameObject.SetActive(false);
+			Instantiate(_deathAuraVFX, gameObject.transform.position, _deathAuraVFX.transform.rotation);
+			Destroy(gameObject);
     }
 }

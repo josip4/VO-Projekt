@@ -21,7 +21,7 @@ public abstract class BaseUnit : MonoBehaviour
     protected float _moveSpeed = 100;
     protected NavMeshAgent _agent;
     public Vector3 Position => _agent.nextPosition;
-    
+
     #nullable enable
     abstract public void Attack(GameObject target);
     public void Awake() {
@@ -34,7 +34,7 @@ public abstract class BaseUnit : MonoBehaviour
     }
 
     abstract protected void Die();
-    
+
 
     void OnMouseEnter()
     {
