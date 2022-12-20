@@ -10,7 +10,8 @@ public class Devil : BaseUnit
     private bool _canMove = true;
     private bool _canAttack = true;
     private Animator _animator;
-    private NavMeshAgent _agent;
+    public GameObject spawnVFX;
+    public GameObject deathVFX;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,8 @@ public class Devil : BaseUnit
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = _moveSpeed;
+
+        Instantiate(spawnVFX, transform.position, spawnVFX.transform.rotation);
     }
 
     // Update is called once per frame
@@ -25,7 +28,7 @@ public class Devil : BaseUnit
     {
         FollowPlayer();
         bool inRange = PlayerInAttackRange(out PlayerUnit player);
-        if (inRange) Attack<PlayerUnit>(player);
+        if (inRange) Attack(player.gameObject);
         else _animator.SetBool("Attacking", false);
     }
     private bool PlayerInAttackRange(out PlayerUnit player)
@@ -34,7 +37,7 @@ public class Devil : BaseUnit
         float distance = Vector3.Distance (player.transform.position, transform.position);
         return distance <= _attackRange;
     }
-    
+
     private bool PlayerInRange(out PlayerUnit player)
     {
         player = FindObjectOfType<PlayerUnit>();
@@ -62,14 +65,19 @@ public class Devil : BaseUnit
             _agent.isStopped = true;
         }
     }
-    public override void Attack<T>(T target)
+    public override void Attack(GameObject target)
     {
         if (!_canAttack) return;
         _canAttack = false;
         _canMove = false;
         _animator.SetBool("Attacking", true);
         StartCoroutine(AttackTimer());
-        target.TakeDamage(_attack);        
+        target.GetComponent<PlayerUnit>().TakeDamage(_attack);
+    }
+    protected override void Die()
+    {
+        Instantiate(deathVFX, gameObject.transform.position, deathVFX.transform.rotation);
+        Destroy(gameObject);
     }
     IEnumerator AttackTimer()
     {

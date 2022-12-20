@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Totem : BaseUnit
 {
@@ -16,26 +17,29 @@ public class Totem : BaseUnit
 
 	void Start()
 	{
-	_animator = GetComponent<Animator>();
+		_animator = GetComponent<Animator>();
+		_agent = GetComponent<NavMeshAgent>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-	CheckPlayerInRange();
+		CheckPlayerInRange();
 
-	if (!_playerInRange) return;
-	Attack<BaseUnit>(null);
+		if (!_playerInRange) return;
+		Attack(null);
 	}
+
 	private void CheckPlayerInRange()
 	{
-	PlayerUnit player = FindObjectOfType<PlayerUnit>();
-	float distance = Vector3.Distance (player.transform.position, transform.position);
-	_playerInRange = distance <= _attackRange ? true : false;
-	if (_aura is null) return;
-	if (_playerInRange) _aura.Play();
-	else _aura.Pause();
+		PlayerUnit player = FindObjectOfType<PlayerUnit>();
+		float distance = Vector3.Distance (player.transform.position, transform.position);
+		_playerInRange = distance <= _attackRange ? true : false;
+		if (_aura is null) return;
+		if (_playerInRange) _aura.Play();
+		else _aura.Pause();
 	}
+
 	IEnumerator Spawn()
 	{
 	_spawning = true;
@@ -47,17 +51,23 @@ public class Totem : BaseUnit
 	Instantiate(_monster, randomSpawnPosition, randomRotation);
 	// yield return new WaitForSeconds(7f);
 	_animator.SetBool("PlayerInRange", _playerInRange);
+	_spawning = false;
 	}
 
-	public override void Attack<T>(T target)
+	public override void Attack(GameObject target)
 	{
 		_animator.SetBool("PlayerInRange", _playerInRange);
 		if (_aura is null)
 		{
 			Vector3 auraPos = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
 			_aura = Instantiate(_auraVFX, auraPos, Quaternion.identity);
-		}    
+		}
 		if (_spawning) return;
 		StartCoroutine(Spawn());
 	}
+
+    protected override void Die()
+    {
+        Destroy(gameObject);
+    }
 }

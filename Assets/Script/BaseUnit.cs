@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class BaseUnit : MonoBehaviour
 {
@@ -17,17 +19,23 @@ public abstract class BaseUnit : MonoBehaviour
     protected float _attackRange = 1f;
     [SerializeField]
     protected float _moveSpeed = 100;
+    protected NavMeshAgent _agent;
+    public Vector3 Position => _agent.nextPosition;
     
     #nullable enable
-    abstract public void Attack<T>(T target) where T : BaseUnit?;
+    abstract public void Attack(GameObject target);
     public void Awake() {
         _health = _maxHealth;
     }
     public void TakeDamage(int damage)
     {
         _health -= damage;
-        if (_health <= 0) Destroy(gameObject);
+        if (_health <= 0) Die();
     }
+
+    abstract protected void Die();
+    
+
     void OnMouseEnter()
     {
         print($"Health = {_health}");
