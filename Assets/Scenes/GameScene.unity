@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.224096, g: 0.117684186, b: 0.26279145, a: 1}
+  m_IndirectSpecularColor: {r: 0.22409599, g: 0.117684186, b: 0.26279145, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1118,6 +1118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 191651984}
+  - component: {fileID: 191651990}
   - component: {fileID: 191651985}
   - component: {fileID: 191651983}
   - component: {fileID: 191651982}
@@ -1248,7 +1249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 200
   _attack: 10
-  _attackSpeed: 1
+  _attackSpeed: 0.5
   _attackRange: 3
   _moveSpeed: 2
 --- !u!114 &191651988
@@ -1326,6 +1327,26 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!95 &191651990
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191651979}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 387bc0e28333743ccabf665ceb8808d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &194415540
 GameObject:
   m_ObjectHideFlags: 0
