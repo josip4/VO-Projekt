@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Totem : BaseUnit
 {
@@ -17,6 +18,7 @@ public class Totem : BaseUnit
 	void Start()
 	{
 		_animator = GetComponent<Animator>();
+		_agent = GetComponent<NavMeshAgent>();
 	}
 
 	// Update is called once per frame
@@ -25,7 +27,7 @@ public class Totem : BaseUnit
 		CheckPlayerInRange();
 
 		if (!_playerInRange) return;
-		Attack<BaseUnit>(null);
+		Attack(null);
 	}
 
 	private void CheckPlayerInRange()
@@ -40,19 +42,19 @@ public class Totem : BaseUnit
 
 	IEnumerator Spawn()
 	{
-		_spawning = true;
-		yield return new WaitForSeconds(1 / _attackSpeed);
-
-		Vector3 randomSpawnPosition = new Vector3(Random.Range(6f, 10f), 0.9f, Random.Range(-18f, -20f));
-		Quaternion randomRotation = Random.rotation;
-		randomRotation.x = 0;
-		randomRotation.z = 0;
-		Instantiate(_monster, randomSpawnPosition, randomRotation);
-		// yield return new WaitForSeconds(7f);
-		_animator.SetBool("PlayerInRange", _playerInRange);
+	_spawning = true;
+	yield return new WaitForSeconds(1 / _attackSpeed);
+	Vector3 randomSpawnPosition = new Vector3(Random.Range(6f, 10f), 0.9f, Random.Range(-18f, -20f));
+	Quaternion randomRotation = Random.rotation;
+	randomRotation.x = 0;
+	randomRotation.z = 0;
+	Instantiate(_monster, randomSpawnPosition, randomRotation);
+	// yield return new WaitForSeconds(7f);
+	_animator.SetBool("PlayerInRange", _playerInRange);
+	_spawning = false;
 	}
 
-	public override void Attack<T>(T target)
+	public override void Attack(GameObject target)
 	{
 		_animator.SetBool("PlayerInRange", _playerInRange);
 		if (_aura is null)
@@ -63,4 +65,9 @@ public class Totem : BaseUnit
 		if (_spawning) return;
 		StartCoroutine(Spawn());
 	}
+
+    protected override void Die()
+    {
+        Destroy(gameObject);
+    }
 }
