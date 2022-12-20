@@ -28,8 +28,10 @@ public class Devil : BaseUnit
     {
         FollowPlayer();
         bool inRange = PlayerInAttackRange(out PlayerUnit player);
+
         if (inRange) Attack(player.gameObject);
         else _animator.SetBool("Attacking", false);
+
     }
     private bool PlayerInAttackRange(out PlayerUnit player)
     {
