@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 7886198973832320699}
   m_Layer: 0
   m_Name: devil
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -597,13 +597,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce7fd9f68270c949861ffe68bbedea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 50
   _attack: 10
   _attackSpeed: 0.5
   _attackRange: 2
   _moveSpeed: 1
   _minPlayerRange: 10
-  spawnVFX: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
+  spawnVFX: {fileID: 9193444397495554904, guid: 78394946ae58ab94eb352b6f7536919d, type: 3}
   deathVFX: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
 --- !u!1 &5638299392972590550
 GameObject:
