@@ -16,11 +16,13 @@ public class Totem : BaseUnit
 	private ParticleSystem _aura = null;
 	private bool _playerInRange = false;
 	private bool _spawning = false;
+	private AudioSource _audioSource;
 
 	void Start()
 	{
 		_animator = GetComponent<Animator>();
 		_agent = GetComponent<NavMeshAgent>();
+		_audioSource = GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -45,6 +47,7 @@ public class Totem : BaseUnit
 
 	IEnumerator Spawn()
 	{
+	_audioSource.Play();
 	_spawning = true;
 	yield return new WaitForSeconds(1 / _attackSpeed);
 	Vector3 randomSpawnPosition = new Vector3(Random.Range(6f, 10f), 0.9f, Random.Range(-18f, -20f));

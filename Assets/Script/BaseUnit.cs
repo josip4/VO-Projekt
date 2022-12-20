@@ -21,14 +21,17 @@ public abstract class BaseUnit : MonoBehaviour
     protected float _moveSpeed = 100;
     protected NavMeshAgent _agent;
     public Vector3 Position => _agent.nextPosition;
+    private AudioSource _audioSource;
 
     #nullable enable
     abstract public void Attack(GameObject target);
     public void Awake() {
+        _audioSource = GetComponent<AudioSource>();
         _health = _maxHealth;
     }
     public void TakeDamage(int damage)
     {
+        _audioSource.Play();
         _health -= damage;
         if (_health <= 0) Die();
     }
