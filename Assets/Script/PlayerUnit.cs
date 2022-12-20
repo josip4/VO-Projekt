@@ -79,6 +79,6 @@ public class PlayerUnit : BaseUnit
 
     protected override void Die()
     {
-        throw new System.NotImplementedException();
+        Destroy(gameObject);
     }
 }

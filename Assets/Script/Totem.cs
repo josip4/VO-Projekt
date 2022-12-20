@@ -33,11 +33,12 @@ public class Totem : BaseUnit
 	private void CheckPlayerInRange()
 	{
 		PlayerUnit player = FindObjectOfType<PlayerUnit>();
+		if (!player) return;
 		float distance = Vector3.Distance (player.transform.position, transform.position);
 		_playerInRange = distance <= _attackRange ? true : false;
 		if (_aura is null) return;
-		if (_playerInRange) _aura.Play();
-		else _aura.Pause();
+		if (_playerInRange) _aura.gameObject.SetActive(true);
+		else _aura.gameObject.SetActive(false);
 	}
 
 	IEnumerator Spawn()

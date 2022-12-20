@@ -34,6 +34,7 @@ public class Devil : BaseUnit
     private bool PlayerInAttackRange(out PlayerUnit player)
     {
         player = FindObjectOfType<PlayerUnit>();
+        if (!player) return false;
         float distance = Vector3.Distance (player.transform.position, transform.position);
         return distance <= _attackRange;
     }
